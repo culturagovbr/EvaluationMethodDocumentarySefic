@@ -4,7 +4,6 @@
     var module = angular.module('opportunity.controller.categories', ['ngSanitize']);
     
     module.controller('CategoriesController',['$scope', 'EditBox', function($scope, EditBox){
-        console.log(MapasCulturais.registration.category);
         $scope.editBox = EditBox;
         $scope.tipologias = MapasCulturais.segmentos;
         $scope.tipologiaAtuacao = [
@@ -12,7 +11,7 @@
                 id: 0,
                 _areas: $scope.tipologias,
                 _segmentos: [],
-                segmento: MapasCulturais.registration.category.trim()
+                segmento: MapasCulturais.registration ? MapasCulturais.registration.category : []
             }
         ];
 
