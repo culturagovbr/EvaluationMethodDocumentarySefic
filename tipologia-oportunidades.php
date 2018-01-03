@@ -77,6 +77,22 @@ return array(
         "Periódicos e outras publicações",
         "Festival literário",
         "Ações de formação e capacitação em geral, incluindo gestão e empreendedorismo cultural",
-        "Construção de bibliotecas desde que esteja prevista a implantação de espaço destinado a apresentações de teatro, exibição de filmes e outras atividades culturais em municípios com menos de 100.000 (cem mil) habitantes")
+        "Construção de bibliotecas desde que esteja prevista a implantação de espaço destinado a apresentações de teatro, exibição de filmes e outras atividades culturais em municípios com menos de 100.000 (cem mil) habitantes"),
 
-    );
+    "Análise de obra de engenharia" => array(
+        "Construção, reforma e adequação estrutural, inclusive em atendimento às regras de acessibilidade física"
+    ),
+
+    "Análise de prestação de contas e resultados" => array(
+        "Análise de prestação de contas e resultados"
+    ),
+
+    "Análise de medidas de acessibilidade à produtos e bens culturais" => array(
+        "Análise de medidas de acessibilidade à produtos e bens culturais"
+    ),
+
+    "Tecnologia da informação" => array(
+        "Análise de sistemas, portais, páginas, blogs e correlatos, em sítios eletrônicos"
+    )
+
+);
