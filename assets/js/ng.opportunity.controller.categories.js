@@ -12,11 +12,12 @@
                 _segmentos: [],
             }
         ];
+        console.log(MapasCulturais);
 
-        if(MapasCulturais.registration.category){
+        if(MapasCulturais.entity.object.category){
             $scope.tipologiaAtuacao = [];
 
-            angular.forEach(MapasCulturais.registration.category.split(";"), (category)=> {
+            angular.forEach(MapasCulturais.entity.object.category.split(";"), (category)=> {
                 $scope.tipologiaAtuacao.push(
                     {
                         _areas: $scope.tipologias,
