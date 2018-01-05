@@ -32,24 +32,12 @@
 
 
             //here be dragons
-            angular.forEach(registration['category'],function(v,i){
-                registration.category = v;
-                var data = Object.assign({}, registration);
+            registration['category'] = registration['category'].join(';');
 
-                if(i==0) {
-                    $http.post('/inscricoes/single/'+MapasCulturais.entity.id, data).success(function (data, status) {
-                        MapasCulturais.Messages.success(labels['changesSaved']);
-                    }).error(function (data, status) {
-                        MapasCulturais.Messages.error(labels['correctErrors']);
-                    });
-                } else {
-                    $http.post('/inscricoes/', data).success(function (data, status) {
-                        MapasCulturais.Messages.success(labels['changesSaved']);
-                    }).error(function (data, status) {
-                        MapasCulturais.Messages.error(labels['correctErrors']);
-                    });
-                }
-
+            $http.post('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(function (data, status) {
+                MapasCulturais.Messages.success(labels['changesSaved']);
+            }).error(function (data, status) {
+                MapasCulturais.Messages.error(labels['correctErrors']);
             });
 
         };

@@ -8,18 +8,30 @@
         $scope.tipologias = MapasCulturais.segmentos;
         $scope.tipologiaAtuacao = [
             {
-                id: 0,
                 _areas: $scope.tipologias,
                 _segmentos: [],
-                segmento: MapasCulturais.registration ? MapasCulturais.registration.category : []
             }
         ];
 
+        if(MapasCulturais.registration.category){
+            $scope.tipologiaAtuacao = [];
+
+            angular.forEach(MapasCulturais.registration.category.split(";"), (category)=> {
+                $scope.tipologiaAtuacao.push(
+                    {
+                        _areas: $scope.tipologias,
+                        _segmentos: [],
+                        segmento: category
+                    }
+                );
+            });
+        }
+
+
         $scope.adicionarSegmento = function() {
-            var novoSegmento = $scope.tipologiaAtuacao.length+1;
             $scope.tipologiaAtuacao.push(
                 {
-                    'id': novoSegmento,
+                    // 'id': novoSegmento,
                     _areas: $scope.tipologias,
                     _segmentos: []
                 }
