@@ -51,7 +51,13 @@ $slug = $_params['opportunity']->evaluationMethodConfiguration->getEvaluationMet
         <?php $this->part('singles/registration-edit--fields', $_params) ?>
 
         <?php if(!$entity->preview): ?>
-            <?php $this->part('singles/registration-edit--send-button', $_params) ?>
+
+            <?php if($slug == "documentary-sefic"):?>
+                <?php $this->part('singles/registration-edit--send-button-sefic', $_params) ?>
+            <?php else:?>
+                <?php $this->part('singles/registration-edit--send-button', $_params) ?>
+            <?php endif;?>
+
         <?php endif; ?>
 
         <?php $this->applyTemplateHook('form','end'); ?>
