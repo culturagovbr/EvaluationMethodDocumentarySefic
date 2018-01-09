@@ -15,7 +15,14 @@
                 if(jQuery(e)[0].id == "category"){
                     registration['category'].push(jQuery(e)[0].textContent);
                 }else{
-                    registration[jQuery(e)[0].id] = jQuery(e)[0].textContent;
+                    var empty = jQuery(e).attr('data-emptytext');
+                    var text = jQuery(e)[0].textContent;
+
+                    if(text !== empty) {
+                        registration[jQuery(e)[0].id] = jQuery(e)[0].textContent;
+                    } else {
+                        registration[jQuery(e)[0].id] = "";
+                    }
                 }
             });
 
