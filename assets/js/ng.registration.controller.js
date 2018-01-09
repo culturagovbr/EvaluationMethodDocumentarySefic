@@ -36,7 +36,7 @@
                 }
             }else{
 
-                $http.post('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(function (data, status) {
+                $http.patch('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(function (data, status) {
                     MapasCulturais.Messages.success(labels['changesSaved']);
                 }).error(function (data, status) {
                     MapasCulturais.Messages.error(labels['correctErrors']);
@@ -47,7 +47,6 @@
         $scope.sendRegistration = function(){
             $scope.createOpportunityRegistration();
             RegistrationService.send($scope.data.entity.id).success(function(response){
-
                 if(response.error){
                     var focused = false;
                     $('.js-response-error').remove();
