@@ -1,5 +1,5 @@
 <div class="registration-fieldset" ng-controller="CategoriesController">
-    <h4>Áreas de atuação e segmentos</h4>
+    <h4>Áreas de atuação e segmentos<span id="segment-required">*</span></h4>
     <div ng-repeat="tipologia in tipologiaAtuacao">
         <a class="required editable js-editable" id="category" ng-click="editBox.open('eb-tipologia'+$index, $event)">{{tipologia.segmento ? tipologia.segmento : 'Escolha um segmento'}}</a>
 

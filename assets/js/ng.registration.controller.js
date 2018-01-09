@@ -6,14 +6,6 @@
     module.controller('RegistrationController',['$scope', 'EditBox', '$http', 'RegistrationService',  function($scope, EditBox, $http, RegistrationService){
         var labels = MapasCulturais.gettext.moduleOpportunity;
 
-        function getOpportunityId(){
-            if(MapasCulturais.request.controller == 'registration'){
-                return MapasCulturais.entity.object.opportunity.id;
-            } else {
-                return MapasCulturais.entity.id;
-            }
-        }
-
         $scope.createOpportunityRegistration = function() {
             // it works
             var registration = {};
@@ -30,25 +22,35 @@
             registration['ownerId'] = MapasCulturais.entity.ownerId;
             registration['opportunityId'] = MapasCulturais.entity.object.opportunity.id;
 
-
             //here be dragons
             registration['category'] = registration['category'].join(';');
 
-            $http.post('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(function (data, status) {
-                MapasCulturais.Messages.success(labels['changesSaved']);
-            }).error(function (data, status) {
-                MapasCulturais.Messages.error(labels['correctErrors']);
-            });
 
+            var res = registration['category'].match(/Escolha um segmento/g);
+            $('.js-response-error').remove()
+            if(res){
+                var erro = "É necessário selecionar as opções em aberto.";
+                MapasCulturais.Messages.error(labels['correctErrors']);
+                if(jQuery('#segment-error').length === 0){
+                    jQuery('#segment-required').append('<span title="' + erro + '" class="danger hltip js-response-error" id="segment-error" data-hltip-classes="hltip-danger"></span>');
+                }
+            }else{
+
+                $http.post('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(function (data, status) {
+                    MapasCulturais.Messages.success(labels['changesSaved']);
+                }).error(function (data, status) {
+                    MapasCulturais.Messages.error(labels['correctErrors']);
+                });
+            }
         };
 
         $scope.sendRegistration = function(){
             $scope.createOpportunityRegistration();
             RegistrationService.send($scope.data.entity.id).success(function(response){
-                $('.js-response-error').remove();
+
                 if(response.error){
                     var focused = false;
-                    Object.keys(response.data).forEach(function(field, index){
+                    Object.keys(response.data).forEach(function(field){
                         var $el;
                         if(field === 'projectName'){
                             $el = $('#projectName').parent().find('.label');
@@ -59,6 +61,7 @@
                         }else {
                             $el = $('#' + field).find('div:first');
                         }
+
                         var message = response.data[field] instanceof Array ? response.data[field].join(' ') : response.data[field];
                         message = message.replace(/"/g, '&quot;');
                         $scope.data.propLabels.forEach(function(prop){
