@@ -27,12 +27,12 @@
 
 
             var res = registration['category'].match(/Escolha um segmento/g);
-            $('.js-response-error').remove()
+            $('.segment-error-category').remove();
             if(res){
                 var erro = "É necessário selecionar as opções em aberto.";
                 MapasCulturais.Messages.error(labels['correctErrors']);
                 if(jQuery('#segment-error').length === 0){
-                    jQuery('#segment-required').append('<span title="' + erro + '" class="danger hltip js-response-error" id="segment-error" data-hltip-classes="hltip-danger"></span>');
+                    jQuery('#segment-required').append('<span title="' + erro + '" class="danger hltip js-response-error-category" id="segment-error" data-hltip-classes="hltip-danger"></span>');
                 }
             }else{
 
@@ -50,6 +50,7 @@
 
                 if(response.error){
                     var focused = false;
+                    $('.js-response-error').remove();
                     Object.keys(response.data).forEach(function(field){
                         var $el;
                         if(field === 'projectName'){
@@ -73,7 +74,7 @@
                             focused = true;
                         }
                     });
-                    MapasCulturais.Messages.error(labels['correctErrors']);
+                    MapasCulturais.Messages.error('Corrija todos os campos antes de enviar a inscrição.');
                 }else{
                     MapasCulturais.Messages.success(labels['registrationSent']);
                     document.location = response.singleUrl;
