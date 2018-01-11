@@ -47,11 +47,11 @@
 
                 $http.patch('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(() => {
                     MapasCulturais.Messages.success(labels['changesSaved']);
+                    defer.resolve();
                 }).error(() => {
                     MapasCulturais.Messages.error(labels['correctErrors']);
+                    defer.reject();
                 });
-
-                defer.resolve();
             }
 
             return defer.promise;
