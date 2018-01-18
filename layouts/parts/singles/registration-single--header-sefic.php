@@ -6,7 +6,7 @@
         $reg = $app->repo('Registration')->find($entity->id);
     ?>
 </div>
-wtf
+
 <h3 class="registration-header"><?php \MapasCulturais\i::_e("Formulário de Inscrição");?></h3>
 
 <div class="registration-fieldset clearfix">
