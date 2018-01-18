@@ -34,9 +34,13 @@ $slug = $_params['opportunity']->evaluationMethodConfiguration->getEvaluationMet
     <article>
         <?php $this->applyTemplateHook('form','begin'); ?>
 
-        <?php $this->part('singles/registration-single--header', $_params) ?>
+        <?php if($slug === "sefic"){
+            $this->part('singles/registration-single--header-sefic', $_params);
+        }else{
+            $this->part('singles/registration-single--header', $_params);
+        } ?>
 
-        <?php if($slug === "documentary-sefic"){
+        <?php if($slug === "documentary-sefic") {
             $this->part('singles/registration-single--categories-sefic', $_params);
         }else{
             $this->part('singles/registration-single--categories', $_params);
@@ -44,7 +48,7 @@ $slug = $_params['opportunity']->evaluationMethodConfiguration->getEvaluationMet
         ?>
 
         <?php $this->part('singles/registration-single--agents', $_params) ?>
-        
+
         <?php $this->part('singles/registration-single--fields', $_params) ?>
 
         <?php $this->applyTemplateHook('form','end'); ?>
