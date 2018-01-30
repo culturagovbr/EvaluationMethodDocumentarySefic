@@ -57,6 +57,7 @@ $(function(){
                 $form.find('input').on('click', function(){
                     if($(this).is(':checked') == 1){
                         if($(this).val() == 'valid'){
+                            alert('teste');
                             $field.removeClass('evaluation-empty');
                             $field.removeClass('evaluation-invalid');
                             $field.addClass('evaluation-valid');
@@ -138,6 +139,6 @@ $(function(){
             }
         });
     } else {
-        
+
     }
 });
