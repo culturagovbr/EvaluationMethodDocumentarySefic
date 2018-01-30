@@ -38,6 +38,31 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
         ;
     }
 
+    function getValidationErrors(Entities\EvaluationMethodConfiguration $evaluation_method_configuration, array $data){
+        $errors = [];
+        $empty = true;
+        $obs_empty = false;
+        foreach($data as $prop => $val){
+            if($val['evaluation']){
+                $empty = false;
+            }
+
+            if(($val['evaluation'] == 'valid' || $val['evaluation'] == 'invalid') && $val['obs'] == ""){
+                $obs_empty = true;
+            }
+        }
+
+        if($empty){
+            $errors[] = i::__('Nenhum campo foi avaliado');
+        }
+
+        if($obs_empty && !$empty){
+            $errors[] = 'É necessário preencher a justificativa dos campos avaliados';
+        }
+
+        return $errors;
+    }
+
     function enqueueScriptsAndStyles() {
         $app = App::i();
 
