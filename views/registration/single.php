@@ -34,7 +34,7 @@ $slug = $_params['opportunity']->evaluationMethodConfiguration->getEvaluationMet
     <article>
         <?php $this->applyTemplateHook('form','begin'); ?>
 
-        <?php if($slug === "sefic"){
+        <?php if($slug === "sefic" || $slug === "documentary-sefic"){
             $this->part('singles/registration-single--header-sefic', $_params);
         }else{
             $this->part('singles/registration-single--header', $_params);

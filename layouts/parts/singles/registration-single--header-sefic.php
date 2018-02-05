@@ -4,6 +4,7 @@
     <?php
         $app = \MapasCulturais\App::i();
         $reg = $app->repo('Registration')->find($entity->id);
+        $slug = $reg->opportunity->evaluationMethodConfiguration->getEvaluationMethod()->getSlug()
     ?>
 </div>
 
@@ -17,7 +18,7 @@
     <div class="alignright">
         <?php if($opportunity->publishedRegistrations):?>
             <div align="center">
-                <?php echo 'Nota da Avaliação: '. $reg->consolidatedResult;?>
+                <?php echo $slug==='sefic'?'Nota da Avaliação: '. $reg->consolidatedResult:''; ?>
                 <span class="status status-{{getStatusSlug(<?php echo $entity->status ?>)}}">{{getStatusNameById(<?php echo $entity->status ?>)}}</span>
             </div>
         <?php endif; ?>
