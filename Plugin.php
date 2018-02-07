@@ -9,7 +9,7 @@ const STATUS_INVALID = 'invalid';
 const STATUS_VALID = 'valid';
 
 class Plugin extends \EvaluationMethodDocumentary\Plugin {
-    
+
 
     public function getSlug() {
         return 'documentary-sefic';
@@ -26,7 +26,7 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
     public function cmpValues($value1, $value2){
         $value1 = (float) $value1;
         $value2 = (float) $value2;
-        
+
         return parent::cmpValues($value1, $value2);
     }
 
@@ -72,9 +72,11 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
 
         $app->view->enqueueScript('app', 'opportunity-controller-categories', 'js/ng.opportunity.controller.categories.js', ['entity.module.opportunity']);
         $app->view->enqueueScript('app', 'registration-controller', 'js/ng.registration.controller.js', ['entity.module.opportunity']);
+        $app->view->enqueueScript('app', 'lot-evaluation-controller', 'js/ng.lot-evaluation.controller.js', ['entity.module.opportunity']);
 
         $app->view->jsObject['angularAppDependencies'][] = 'opportunity.controller.categories';
         $app->view->jsObject['angularAppDependencies'][] = 'registration.controller';
+        $app->view->jsObject['angularAppDependencies'][] = 'lot-evaluation.controller';
         $app->view->jsObject['segmentos'] = require __DIR__ . '/' . 'tipologia-oportunidades.php';
     }
 
@@ -126,7 +128,7 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
                         'obs' => (object) [
                             'label' => i::__('Observações'),
                             'getValue' => function(Entities\RegistrationEvaluation $evaluation) use($id) {
-                                
+
                                 $evaluation_data = (array) $evaluation->evaluationData;
                                 if (isset($evaluation_data[$id])) {
                                     $data = $evaluation_data[$id];
@@ -170,7 +172,7 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
 
     public function getEvaluationResult(Entities\RegistrationEvaluation $evaluation) {
         $data = (array) $evaluation->evaluationData;
-        
+
         if(is_array($data) && count($data) == 0){
             return 1; // valid
         }
@@ -195,7 +197,7 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
         return '';
 
     }
-    
+
     public function fetchRegistrations() {
         return true;
     }
