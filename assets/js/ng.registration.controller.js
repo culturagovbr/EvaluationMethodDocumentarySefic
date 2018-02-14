@@ -58,42 +58,43 @@
         };
 
         $scope.sendRegistration = function(){
-            $scope.createOpportunityRegistration().then(() => {
-                RegistrationService.send($scope.data.entity.id).success(function (response) {
-                    if (response.error) {
-                        var focused = false;
-                        $('.js-response-error').remove();
-                        Object.keys(response.data).forEach(function (field) {
-                            var $el;
-                            if (field === 'projectName') {
-                                $el = $('#projectName').parent().find('.label');
-                            } else if (field === 'category') {
-                                $el = $('.js-editable-registrationCategory').parent();
-                            } else if (field.indexOf('agent') !== -1) {
-                                $el = $('#' + field).parent().find('.registration-label');
-                            } else {
-                                $el = $('#' + field).find('div:first');
-                            }
+            if (confirm('Deseja realmente enviar sua inscrição? Depois de enviada, não será mais possível editá-la.')) {
+                $scope.createOpportunityRegistration().then(() => {
+                    RegistrationService.send($scope.data.entity.id).success(function (response) {
+                        if (response.error) {
+                            var focused = false;
+                            $('.js-response-error').remove();
+                            Object.keys(response.data).forEach(function (field) {
+                                var $el;
+                                if (field === 'projectName') {
+                                    $el = $('#projectName').parent().find('.label');
+                                } else if (field === 'category') {
+                                    $el = $('.js-editable-registrationCategory').parent();
+                                } else if (field.indexOf('agent') !== -1) {
+                                    $el = $('#' + field).parent().find('.registration-label');
+                                } else {
+                                    $el = $('#' + field).find('div:first');
+                                }
 
-                            var message = response.data[field] instanceof Array ? response.data[field].join(' ') : response.data[field];
-                            message = message.replace(/"/g, '&quot;');
-                            $scope.data.propLabels.forEach(function (prop) {
-                                message = message.replace('{{' + prop.name + '}}', prop.label);
+                                var message = response.data[field] instanceof Array ? response.data[field].join(' ') : response.data[field];
+                                message = message.replace(/"/g, '&quot;');
+                                $scope.data.propLabels.forEach(function (prop) {
+                                    message = message.replace('{{' + prop.name + '}}', prop.label);
+                                });
+                                $el.append('<span title="' + message + '" class="danger hltip js-response-error" data-hltip-classes="hltip-danger"></span>');
+                                if (!focused) {
+                                    $('html,body').animate({scrollTop: $el.parents('li').get(0).offsetTop - 10}, 300);
+                                    focused = true;
+                                }
                             });
-                            $el.append('<span title="' + message + '" class="danger hltip js-response-error" data-hltip-classes="hltip-danger"></span>');
-                            if (!focused) {
-                                $('html,body').animate({scrollTop: $el.parents('li').get(0).offsetTop - 10}, 300);
-                                focused = true;
-                            }
-                        });
-                        MapasCulturais.Messages.error('Corrija todos os campos antes de enviar a inscrição.');
-                    } else {
-                        MapasCulturais.Messages.success(labels['registrationSent']);
-                        document.location = response.singleUrl;
-                    }
-                });
-            }, () => MapasCulturais.Messages.error('É necessário preencher as áreas de atuação e segmentos, antes de continuar.'));
-
+                            MapasCulturais.Messages.error('Corrija todos os campos antes de enviar a inscrição.');
+                        } else {
+                            MapasCulturais.Messages.success(labels['registrationSent']);
+                            location.reload();
+                        }
+                    });
+                }, () => MapasCulturais.Messages.error('É necessário preencher as áreas de atuação e segmentos, antes de continuar.'));
+            }
         };
 
     }]);
