@@ -41,22 +41,23 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
     function getValidationErrors(Entities\EvaluationMethodConfiguration $evaluation_method_configuration, array $data){
         $errors = [];
         $empty = true;
-        $obs_empty = false;
+        $obs_filled = true;
         foreach($data as $prop => $val){
             if($val['evaluation']){
                 $empty = false;
             }
 
-            if(($val['evaluation'] == 'valid' || $val['evaluation'] == 'invalid') && $val['obs'] == ""){
-                $obs_empty = true;
+            if(!$val['evaluation'] === "" && $val['obs'] === ""){
+                $obs_filled = false;
             }
         }
 
         if($empty){
             $errors[] = i::__('Nenhum campo foi avaliado');
+            $obs_filled = false;
         }
 
-        if($obs_empty && !$empty){
+        if($obs_filled){
             $errors[] = 'É necessário preencher a justificativa dos campos avaliados';
         }
 
