@@ -6,7 +6,7 @@
     module.controller('RegistrationController',['$scope', 'EditBox', '$q', '$http', 'RegistrationService',  function($scope, EditBox, $q, $http, RegistrationService){
         var labels = MapasCulturais.gettext.moduleOpportunity;
 
-        $scope.createOpportunityRegistration = function() {
+        $scope.createOpportunityRegistration = function(sendRegistration = false) {
             // it works
             var registration = {};
             registration['category'] = [];
@@ -33,18 +33,19 @@
             registration['category'] = registration['category'].join(';');
 
 
-            var res = registration['category'].match(/Escolha um segmento/g);
+            registration['category'] = registration['category'].replace(/Escolha um segmento;/g, "");
+            registration['category'] = registration['category'].replace(/;Escolha um segmento/g, "");
+
             var defer = $q.defer();
             $('.segment-error-category').remove();
-            if(res){
-                var erro = "É necessário selecionar as opções em aberto.";
+            if(registration['category'] === 'Escolha um segmento' && sendRegistration === true){
+                var erro = "O campo &quot;Áreas de atuação e segmentos&quot; é obrigatório.";
                 MapasCulturais.Messages.error(labels['correctErrors']);
                 if(jQuery('#segment-error').length === 0){
                     jQuery('#segment-required').append('<span title="' + erro + '" class="danger hltip js-response-error js-response-error-category" id="segment-error" data-hltip-classes="hltip-danger"></span>');
                 }
                 defer.reject();
             }else{
-
                 $http.patch('/inscricoes/single/'+MapasCulturais.entity.id, registration).success(() => {
                     MapasCulturais.Messages.success(labels['changesSaved']);
                     defer.resolve();
@@ -59,7 +60,8 @@
 
         $scope.sendRegistration = function(){
             if (confirm('Deseja realmente enviar sua inscrição? Depois de enviada, não será mais possível editá-la.')) {
-                $scope.createOpportunityRegistration().then(() => {
+                var sendRegistration = true;
+                $scope.createOpportunityRegistration(sendRegistration).then(() => {
                     RegistrationService.send($scope.data.entity.id).success(function (response) {
                         if (response.error) {
                             var focused = false;
