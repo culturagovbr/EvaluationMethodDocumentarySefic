@@ -38,11 +38,15 @@ use MapasCulturais\i;
 </p>
 
 <p>
-  <?php if (!$entity->publishedRegistrations): ?>
-  <span ng-show="data.registrationsAPIMetadata.count > 0">
-     Avaliação em lote <input ng-init="lot_evaluation=false" ng-model="lot_evaluation" type="checkbox">
-  </span>
- <?php endif; ?>
+    <?php if (!$entity->publishedRegistrations): ?>
+        <span ng-show="data.registrationsAPIMetadata.count > 0">
+         Avaliação em lote: <input ng-init="lot_evaluation=false" ng-model="lot_evaluation" type="checkbox">
+      </span>
+    <?php endif; ?>
+    </br>
+    <span>
+         Pesquisar inscrição: <input ng-model="registrationsFilters['id']" placeholder="<?php i::_e('ex: 12345678') ?>" >
+       </span>
 </p>
 
 <style>
