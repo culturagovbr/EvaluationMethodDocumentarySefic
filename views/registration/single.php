@@ -55,4 +55,10 @@ $slug = $_params['opportunity']->evaluationMethodConfiguration->getEvaluationMet
     </article>
 </article>
 <?php $this->part('singles/registration--sidebar--left', $_params) ?>
-<?php $this->part('singles/registration--sidebar--right', $_params) ?>
+<?php
+    if($slug === "documentary-sefic") {
+        $this->part('singles/registration--sidebar--right-sefic', $_params);
+    }else{
+        $this->part('singles/registration--sidebar--right', $_params);
+    }
+?>
