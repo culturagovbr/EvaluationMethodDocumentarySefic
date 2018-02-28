@@ -3,9 +3,13 @@
 
     var module = angular.module('registration.controller', ['ngSanitize']);
 
-    module.controller('RegistrationController',['$scope', 'EditBox', '$q', '$http', 'RegistrationService',  function($scope, EditBox, $q, $http, RegistrationService){
+    module.controller('RegistrationController',['$scope', 'EditBox', '$q', '$http', 'RegistrationService', '$interval',  function($scope, EditBox, $q, $http, RegistrationService, $interval){
         var labels = MapasCulturais.gettext.moduleOpportunity;
 
+        $interval(function(){
+            $scope.createOpportunityRegistration();
+        }, 1800000);
+        
         $scope.createOpportunityRegistration = function(sendRegistration = false) {
             // it works
             var registration = {};
