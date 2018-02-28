@@ -1,9 +1,12 @@
     <div class="registration-fieldset">
         <div>
-            <?php $categories = explode(';',$entity->category); ?>
+            <?php
+            $tipologias = require __DIR__ . '/../../../' . 'tipologia-oportunidades.php';
+            $categories = explode(';',$entity->category); ?>
             <h4>Categorias</h4>
-            <?php foreach($categories as $category){
-                echo $category . '</br>';
+            <?php foreach($tipologias as $category){
+                $segmento = array_search($category, $tipologias);
+                echo $segmento . '</br>';
             }?>
         </div>
     </div>

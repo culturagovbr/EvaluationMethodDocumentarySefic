@@ -9,7 +9,7 @@
         $interval(function(){
             $scope.createOpportunityRegistration();
         }, 1800000);
-        
+
         $scope.createOpportunityRegistration = function(sendRegistration = false) {
             // it works
             var registration = {};
@@ -17,7 +17,7 @@
 
             angular.forEach(jQuery('[class*="js-editable"]'), function(e){
                 if(jQuery(e)[0].id == "category"){
-                    registration['category'].push(jQuery(e)[0].textContent);
+                    registration['category'].push(jQuery(e).attr('data-segmento'));
                 }else{
                     var empty = jQuery(e).attr('data-emptytext');
                     var text = jQuery(e)[0].textContent;

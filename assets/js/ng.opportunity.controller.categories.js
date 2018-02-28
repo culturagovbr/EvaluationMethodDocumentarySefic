@@ -6,12 +6,19 @@
     module.controller('CategoriesController',['$scope', 'EditBox', function($scope, EditBox){
         $scope.editBox = EditBox;
         $scope.tipologias = MapasCulturais.segmentos;
+        $scope.arrTipologias = [];
         $scope.tipologiaAtuacao = [
             {
                 _areas: $scope.tipologias,
                 _segmentos: [],
             }
         ];
+
+        Object.values(MapasCulturais.segmentos).map((v) => {
+            Object.values(v).map((e) => {
+                $scope.arrTipologias.push(e);
+            });
+        });
 
         if(MapasCulturais.entity.object.category){
             $scope.tipologiaAtuacao = [];
@@ -21,7 +28,8 @@
                     {
                         _areas: $scope.tipologias,
                         _segmentos: [],
-                        segmento: category
+                        segmento: category,
+                        nomeSegmento: $scope.arrTipologias[category]
                     }
                 );
             });
@@ -55,6 +63,10 @@
 
         $scope.resetValues = function(){
 
+        };
+
+        $scope.findName = function(tipologia){
+            tipologia.nomeSegmento = $scope.arrTipologias[tipologia.segmento];
         };
 
     }]);

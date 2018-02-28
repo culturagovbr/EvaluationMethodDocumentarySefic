@@ -1,7 +1,7 @@
 <div class="registration-fieldset" ng-controller="CategoriesController">
     <h4>Áreas de atuação e segmentos<span id="segment-required">*</span></h4>
     <div ng-repeat="tipologia in tipologiaAtuacao">
-        <a class="required editable js-editable" id="category" ng-click="editBox.open('eb-tipologia'+$index, $event)">{{tipologia.segmento ? tipologia.segmento : 'Escolha um segmento'}}</a>
+        <a class="required editable js-editable" id="category" data-segmento="{{tipologia.segmento}}" ng-click="editBox.open('eb-tipologia'+$index, $event)">{{tipologia.segmento ? tipologia.nomeSegmento : 'Escolha um segmento'}}</a>
 
         <edit-box  id="eb-tipologia{{$index}}" position="bottom" cancel-label="Cancelar" submit-label="Enviar" on-submit="setTypes" on-cancel="resetValues" close-on-cancel="1">
             <label>
@@ -12,8 +12,8 @@
             </label>
             <label ng-show="tipologia.area">
                 segmento:
-                <select ng-model="tipologia.segmento">
-                    <option ng-repeat="val in tipologia._segmentos" ng-value="val">{{val}}</option>
+                <select ng-change="findName(tipologia)" ng-model="tipologia.segmento">
+                    <option ng-repeat="(key, val) in tipologia._segmentos" ng-value="key">{{val}}</option>
                 </select>
             </label>
 
