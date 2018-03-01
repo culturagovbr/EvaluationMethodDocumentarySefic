@@ -11,6 +11,8 @@
             {
                 _areas: $scope.tipologias,
                 _segmentos: [],
+                segmento: 'Escolha um segmento',
+                nomeSegmento: 'Escolha um segmento'
             }
         ];
 
@@ -40,7 +42,9 @@
                 {
                     // 'id': novoSegmento,
                     _areas: $scope.tipologias,
-                    _segmentos: []
+                    _segmentos: [],
+                    segmento: 'Escolha um segmento',
+                    nomeSegmento: 'Escolha um segmento'
                 }
             );
         };
