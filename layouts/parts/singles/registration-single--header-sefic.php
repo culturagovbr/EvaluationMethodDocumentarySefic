@@ -1,6 +1,6 @@
 <div class="alert success">
     <?php \MapasCulturais\i::_e("Inscrição enviada no dia");?>
-    <?php echo $entity->sentTimestamp->format('d/m/Y à\s H:i:s'); ?>
+    <?php echo isset($entity->sentTimestamp) ? $entity->sentTimestamp->format('d/m/Y à\s H:i:s') : ''; ?>
     <?php
         $app = \MapasCulturais\App::i();
         $reg = $app->repo('Registration')->find($entity->id);
