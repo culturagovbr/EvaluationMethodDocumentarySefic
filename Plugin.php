@@ -148,6 +148,42 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
 
             $sections = $result;
         });
+
+        $app->hook('view.partial(singles/registration-single--header).params', function (&$params, &$template_name) {
+            $opportunity = self::getRequestedOpportunity();
+
+            if (!$opportunity) {
+                return;
+            }
+
+            if ($opportunity->slug == 'documentary-sefic') {
+                $template_name = 'singles/registration-single--header-sefic';
+            }
+        });
+
+        $app->hook('view.partial(singles/registration-single--categories).params', function (&$params, &$template_name) {
+            $opportunity = self::getRequestedOpportunity();
+
+            if (!$opportunity) {
+                return;
+            }
+
+            if ($opportunity->slug == 'documentary-sefic') {
+                $template_name = 'singles/registration-single--categories-sefic';
+            }
+        });
+
+        $app->hook('view.partial(singles/registration--sidebar--right).params', function (&$params, &$template_name) {
+            $opportunity = self::getRequestedOpportunity();
+
+            if (!$opportunity) {
+                return;
+            }
+
+            if ($opportunity->slug == 'documentary-sefic') {
+                $template_name = 'singles/registration--sidebar--right-sefic';
+            }
+        });
     }
 
     public function _getConsolidatedResult(Entities\Registration $registration) {
@@ -204,4 +240,17 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
         return true;
     }
 
+    static function getRequestedOpportunity()
+    {
+        $app = App::i();
+
+        $opportunity = $app->view->controller->requestedEntity->opportunity;
+        $opportunity->slug = $opportunity->evaluationMethodConfiguration->getEvaluationMethod()->getSlug();
+
+        if (!$opportunity) {
+            return null;
+        }
+
+        return $opportunity;
+    }
 }
