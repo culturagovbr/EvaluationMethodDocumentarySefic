@@ -84,7 +84,8 @@ class Plugin extends \EvaluationMethodDocumentary\Plugin {
 
     public function _init() {
         $app = App::i();
-        $app->hook('evaluationsReport(documentary).sections', function(Entities\Opportunity $opportunity, &$sections) use($app) {
+        $_hook = "evaluationsReport(".$this->getSlug().").sections";
+        $app->hook($_hook, function(Entities\Opportunity $opportunity, &$sections) use($app) {
             $columns = [];
             $evaluations = $opportunity->getEvaluations();
 
